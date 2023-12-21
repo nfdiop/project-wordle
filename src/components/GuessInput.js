@@ -1,6 +1,6 @@
 import React from "react";
 
-export function GuessInput({ onSubmit }){
+export function GuessInput({ onSubmit, disabled }){
     const [inputValue, setInputValue] = React.useState("")
 
     const handleSubmit = (event) => {
@@ -16,7 +16,7 @@ export function GuessInput({ onSubmit }){
             <input id="guess-input" type="text" value={inputValue} onChange={(event) => {
                 const value = event.target.value;
                 setInputValue(value.toUpperCase())
-            }} pattern=".{5}" minLength={5} maxLength={5} autoComplete="off" title="Please enter exactly 5 characters" />
+            }} pattern=".{5}" minLength={5} maxLength={5} autoComplete="off" title="Please enter exactly 5 characters" disabled={disabled} />
         </form>
     )
 }

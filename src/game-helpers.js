@@ -3,6 +3,11 @@
  * solving algorithm!
  */
 
+const LETTER_STATUS = {
+  "correct": "correct",
+  "incorrect": "incorrect",
+  "misplaced": "misplaced",
+}
 export function checkGuess(guess, answer) {
   // This constant is a placeholder that indicates we've successfully
   // dealt with this character (it's correct, or misplaced).
@@ -22,7 +27,7 @@ export function checkGuess(guess, answer) {
     if (guessChars[i] === answerChars[i]) {
       result[i] = {
         letter: guessChars[i],
-        status: 'correct',
+        status: LETTER_STATUS["correct"],
       };
       answerChars[i] = SOLVED_CHAR;
       guessChars[i] = SOLVED_CHAR;
@@ -36,12 +41,12 @@ export function checkGuess(guess, answer) {
       continue;
     }
 
-    let status = 'incorrect';
+    let status = LETTER_STATUS["incorrect"];
     const misplacedIndex = answerChars.findIndex(
       (char) => char === guessChars[i]
     );
     if (misplacedIndex >= 0) {
-      status = 'misplaced';
+      status = LETTER_STATUS["misplaced"];
       answerChars[misplacedIndex] = SOLVED_CHAR;
     }
 
@@ -52,4 +57,8 @@ export function checkGuess(guess, answer) {
   }
 
   return result;
+}
+
+export function isGuessValid(validationResult) {
+  return validationResult.every(guess => guess.status === LETTER_STATUS["correct"])
 }
