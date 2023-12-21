@@ -1,11 +1,12 @@
 import React from "react";
 
-export function GuessInput(){
+export function GuessInput({ onSubmit }){
     const [inputValue, setInputValue] = React.useState("")
 
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log("🚀 ~ file: GuessInput.js:9 ~ handleSubmit ~ inputValue:", inputValue)
+        onSubmit(inputValue)
         setInputValue("")
     }
 
