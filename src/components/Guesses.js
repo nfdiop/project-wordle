@@ -1,8 +1,9 @@
 import React from "react";
 import { range } from "../utils";
-import { NUM_OF_GUESSES_ALLOWED } from "../constants"
+import { NUM_OF_GUESSES_ALLOWED } from "../constants";
+import { checkGuess } from "../game-helpers";
 
-export function Guesses({ guesses }) {
+export function Guesses({ answer, guesses }) {
   return (
     <div className="guess-results">
       {range(0, NUM_OF_GUESSES_ALLOWED).map((idx) => {
@@ -11,7 +12,9 @@ export function Guesses({ guesses }) {
           maybeGuess == null ? (
             <EmptyGuess />
           ) : (
-            <GuessedWord guess={maybeGuess} />
+            <GuessedWord
+              guessValidationResult={checkGuess(maybeGuess.label, answer)}
+            />
           );
         return <React.Fragment key={idx}>{renderedGuess}</React.Fragment>;
       })}
@@ -31,15 +34,10 @@ function EmptyGuess() {
   );
 }
 
-function GuessedWord({ guess }) {
-  const { label } = guess;
+function GuessedWord({ guessValidationResult }) {
   return (
     <p className="guess">
-      <span className="cell">{label[0]}</span>
-      <span className="cell">{label[1]}</span>
-      <span className="cell">{label[2]}</span>
-      <span className="cell">{label[3]}</span>
-      <span className="cell">{label[4]}</span>
+      {guessValidationResult.map(({ letter, status }) => <span className={`cell ${status}`}>{letter}</span>)}
     </p>
   );
 }
