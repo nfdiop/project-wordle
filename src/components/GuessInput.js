@@ -15,7 +15,7 @@ export function GuessInput(){
             <input id="guess-input" type="text" value={inputValue} onChange={(event) => {
                 const value = event.target.value;
                 setInputValue(value.toUpperCase())
-            }} pattern=".{5}" minLength={5} maxLength={5} autoComplete="off" />
+            }} pattern=".{5}" minLength={5} maxLength={5} autoComplete="off" title="Please enter exactly 5 characters" />
         </form>
     )
 }
